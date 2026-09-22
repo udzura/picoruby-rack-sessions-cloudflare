@@ -7,7 +7,9 @@ MRuby::Gem::Specification.new("picoruby-rack-sessions-cloudflare") do |spec|
 
   spec.add_dependency "mruby-rack", github: "udzura/mruby-rack", branch: "master"
   pico_gems = File.join(MRUBY_ROOT, "mrbgems", "picoruby-mruby", "lib", "mruby", "mrbgems")
-  if File.directory?(pico_gems)
+  if ENV["PICORUBY_USE_MRUBY_JSONRS"]
+    spec.add_dependency "mruby-jsonrs", github: "udzura/mruby-jsonrs"
+  elsif File.directory?(pico_gems)
     spec.add_dependency "picoruby-json"
     spec.add_dependency "mruby-time", gemdir: File.join(pico_gems, "mruby-time")
   else
